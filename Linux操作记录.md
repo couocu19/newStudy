@@ -10,10 +10,6 @@
 
 常用文件介绍：
 
-```
-
-```
-
 - ~/，~，~/.
 
 ```
@@ -101,3 +97,97 @@ dselect安装更新	sudo apt-get dselect-upgrade
 删除更新和升级的缓存软件	cd /var/cache/apt/archives && sudo rm *.deb
 ```
 
+- head查看文件前k行数据
+
+```
+head -n k file_path
+关于head命令
+head 用来显示档案的开头至标准输出中，默认head命令打印其相应文件的开头10行。
+-q 隐藏文件名,在多个文件名的情况下有效
+-v 显示文件名
+-c N 从头显示N字节的内容
+-n N 从头显示N行
+```
+
+​     **显示文件的前10个字节**
+
+```
+head -c 10 1.txt
+1
+显示从文件头到倒数第N个字符的内容
+N=-2 也就是除了文件末尾的两个字符不显示,其余都显示
+head -c -2 1.txt
+
+1
+2
+3
+同时查看多个文件
+//默认会显示文件名
+head -n 5 1.txt 2.txt
+
+==> 1.txt <==
+vvv
+ccc
+123 9090
+asd 123
+123 444 99
+
+==> 2.txt <==
+入门小站
+```
+
+
+**同时查看多个文件,不显示文件名**
+> ```
+> head -n 5 -q 1.txt 2.txt
+> head -n 5 -q 1.txt 2.txt 
+> vvv
+> ccc
+> 123 9090
+> asd 123
+> 123 444 99
+> 入门小站
+> ```
+
+
+**显示从文件开头到倒数第N行的内容**
+```
+> head -n -5 1.txt
+> 1
+> head输出文件M和N行之间的打印行（M>N）
+> 输出文件第10(N=10)行到第20(M=20)行的内容
+> head -n 20 1.txt | tail -10
+> 1
+> 输出当前目录下最近使用的3个文件
+> ls -t | head -n 3
+```
+
+- ### linux修改文件名称
+
+```
+sodo mv old-file-name new-file-name
+```
+
+- ### linux 复制文件/文件夹
+
+将某一个文件夹下的所有文件复制到另一个文件夹
+
+```
+cp -r /home/packageA /home/packageB
+运行命令之后packageB文件夹下就有packageA文件夹了。
+```
+
+将某一个文件夹复制到另一个文件夹
+
+```
+cp -r /home/packageA/* /home/cp/packageB/
+或
+cp -r /home/packageA/. /home/cp/packageB/
+这两种方法效果是一样的。
+```
+
+
+
+- ### cp命令各大参数解释
+
+![1664358601701](D:\studyNodes\Linux操作记录.assets\1664358601701.png)
