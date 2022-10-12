@@ -111,3 +111,14 @@ cmd命令框退出python
 pd.set_option('display.max_columns', None)
 ```
 
+
+
+## 10.6
+
+- 数据分析理论铺垫
+
+```
+集中趋势：数据聚拢的一种衡量  eg：均值、中位数、众数、分位数
+        四分位数
+```
+

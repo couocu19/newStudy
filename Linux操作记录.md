@@ -191,3 +191,84 @@ cp -r /home/packageA/. /home/cp/packageB/
 - ### cp命令各大参数解释
 
 ![1664358601701](D:\studyNodes\Linux操作记录.assets\1664358601701.png)
+
+- linux查看是否存在自动杀死进程的命令
+
+```
+# 通过以下三种命令查看系统是否主动杀死程序进程
+dmesg | egrep -i -B100 'killed process'
+
+## 或:
+egrep -i 'killed process' /var/log/messages
+egrep -i -r 'killed process' /var/log
+
+## 或:
+journalctl -xb | egrep -i 'killed process'
+```
+
+- linux查看剩余内存
+
+```
+free -h
+free -m
+```
+
+- linux清理内存/磁盘命令
+
+https://blog.csdn.net/dark159735/article/details/122314198
+
+```
+若输入清理缓存命令后提示权限不够，则改为：
+sudo sh -c "echo 1/2/3 > /proc/sys/vm/drop_caches"
+活者 
+echo 1|sudo /proc/...
+```
+
+- linux彻底关闭 oom自动杀死进程命令
+
+```
+1.关闭oom-killer
+cat /proc/sys/vm/oom-kill
+echo "0" > /proc/sys/vm/oom-kill
+vi /etc/sysctl.conf
+vm.oom-kill = 0
+```
+
+- 修改权限
+
+```
+chmod能改变权限，-R是目录下所有文件，777就是高权限（读、写、执行）
+chmod -R 777 * 意思就是将当前目录下所有文件都给予777权限
+```
+
+- 查看某个文件的大小
+
+```
+du -h filename
+```
+
+- linux解压zip文件命令
+
+```
+unzip
+```
+
+- Linux下设置环境变量
+
+  具体：https://blog.csdn.net/an520_/article/details/125220048
+
+```
+export PATH = “/。。/。。/。。:$PATH”
+"/。。/。。/。"代表的就是当前要设置的命令所在的文件夹路径
+```
+
+- nano命令退出
+
+```
+ctrl+X
+nano命令介绍
+nano是一个字符编辑软件，类似于vi/vim，比vi/vim简单方便快捷。
+nano打开一个文件：
+nano + 文件名称
+```
+
