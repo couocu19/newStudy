@@ -272,3 +272,140 @@ nano打开一个文件：
 nano + 文件名称
 ```
 
+- linux解压gz文件
+
+  ```
+  gzip -d 压缩文件名称
+  ```
+
+- 查看文件的行数
+
+```
+wc 文件名称/路径
+wc -l 查看当前文件有多少行内容
+wc -w 查看当前文件有多少字数
+wc -L 查看当前文件最长的一行有多少字数
+```
+
+- linux查看文件第n行的内容
+
+  ```
+  sed    -n    '行数p'   文件名称
+  ```
+
+
+
+- linux 按行数/大小拆分文件
+
+```
+1、以100行作为基本单位切分data.txt文件
+【 split -l 100 data.txt result.txt 】
+输出文件：result.txtab result.txtac…结尾以 aa ab ac…
+2、结尾以数字作为切分的依据
+【 split -l 100 data.txt result.txt -d 】
+输出文件：result.txt00、result.txt01…
+3、指定切割后的文件前缀名与后缀名
+【 split -l 100 data.txt -d -a 4 data_ 】
+说明：
+1）-l 100：按100行切割
+2）data_：指定切割后的文件前缀名
+3）-d：指定切割后的文件后缀名为数字
+4）-a 4：指定切割后的文件后缀名数字的长度
+```
+
+- **linux 压缩文件为zip文件**
+
+```
+zip  文件名称/文件夹名称 压缩后的文件名称
+eg：
+zip split-data/* split-data.zip
+ps:
+deflated 70% 代表压缩率为百分之70
+```
+
+- linux编写循环脚本
+
+```
+for 循环初始条件
+do
+	循环体
+done
+
+数字转字符串：
+var1=123
+var2 = “$var1”---->即转为字符串
+
+字符串拼接
+$value1=home
+$value2=${value1}"="
+echo $value2
+把要添加的字符串变量添加{}，并且需要把$放到外面。
+这样输出的结果是：home=，也就是说连接成功。
+又如代码如下:
+
+[root@localhost sh]# var1=http://www.3lian.com/etc/
+
+[root@localhost sh]# var2=yum.repos.d/
+
+[root@localhost sh]# var3=${var1}${var2}
+
+[root@localhost sh]# echo $var3
+
+
+```
+
+第一次写脚本代码就成功！！！！
+
+```shell
+#!/bin/bash
+
+tail=".bed"
+for((i=1;i<=306;i=i+1))
+do
+   var="$i"
+   var1="s"${var}
+   var2="m"${var}
+   var3="c"${var}
+   
+   fn=${var}${tail}
+   sfn=${var1}${tail}
+   bedtools sort -i $fn > $sfn
+   
+   mfn=${var2}${tail}
+   bedtools merge -i $sfn > $mfn
+
+   cfn=${var3}${tail}
+   bedtools coverage -a S4257-chr.bed -b $mfn > $cfn
+done
+```
+
+
+
+- linux查看当前文件夹下的文件个数
+
+```
+统计当前目录下文件的个数（不包括目录）
+ls -l | grep "^-" | wc -l
+
+统计当前目录下文件的个数（包括子目录）
+ls -lR| grep "^-" | wc -l
+
+查看某目录下文件夹(目录)的个数（包括子目录）
+ls -lR | grep "^d" | wc -l
+```
+
+- linux vim定位到某一行修改
+
+```
+：n
+n指的是要定位到的行数
+```
+
+- linux和windows下的文件---换行符的问题
+
+```
+windows下读取到的文件的换行符： '\r\n' (\r代表回车符)
+linux/unix： '\n'
+这会导致linux和windows互相读取文件的时候出现换行/数据长度的问题
+```
+
