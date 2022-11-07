@@ -504,7 +504,7 @@ colors = '''#FFB6C1 LightPink 浅粉红
 q_low=上四分位数
 q_high=下四分位数
 q_interval=q_high-q_low
-k=间隔数  
+k=间隔数（一般在1.5到3之间）
 (q_low-k*q_interval)≤x≤(q_high+k*q_interval)
 上下界之间的就是通常说的“正常值”信息
 
@@ -512,9 +512,105 @@ k=间隔数
 les=les[les<q_high+k*q_interval][les>q_low-k*q_interval]
 ```
 
-- 求数据的分布直方图
+- 求数据的分布直方图 //
 
 ```
   np.histogram(les,values,bins=np.arange(0.0,1.1,0.1))
 ```
 
+
+
+## 11.6
+
+- 求一组数据中各个值的占比
+
+  （静态结构分析）
+
+```
+假设某一组数据为nb，求nb这一列的数据各个值得分布：
+nb.value_count(normalize=True) （得到占比）
+4    0.290961
+3    0.270297
+5    0.184042
+2    0.159379
+6    0.078256
+7    0.017064
+
+nb.value_counts()  （得到数量）
+4    4365
+3    4055
+5    2761
+2    2391
+6    1174
+7     256
+
+nb.value_counts(normalize=True).sort_index() （占比＋排序）
+2    0.159379
+3    0.270297
+4    0.290961
+5    0.184042
+6    0.078256
+7    0.017064
+```
+
+- 一组数据的标准差和方差反应的是什么?
+
+```
+标准差和方差反映数据的什么特征
+反映的是一组数据的集中与离散程度、波动与稳定状况，一般的标准差和方差越小说明数据越集中、越稳定，反之越础散。当然还要是具体情况而定.
+```
+
+- 处理csv文件时快速查看每一组数据的属性
+
+​       df.describe()
+
+- 消除某组数据中的异常值
+
+  ```
+  s=data
+  
+  s.value_count() ----->通过结果检索异常值
+  
+  假设异常值为 "nme"
+  
+  消除异常值：
+  
+  s.where(s!="nme").dropna()
+  ```
+
+  
+
+- 求某个csv数据按照某个属性分组后的某一列的极差值
+
+```
+df.loc[:,["average_monthly_hours","department"]].groupby("department")["average_monthly_hours"].apply(lambda x:x.max() - x.min())
+```
+
+- 可视化分析
+
+todo：提上日程的事情：每天至少看3个数分的视频！！！！
+
+
+
+## 11.7
+
+- sns绘制柱状图
+
+  ```
+  sns.countplot(x="salary",hue="department",data=df)
+  真的好方便好厉害。。优秀。。。。。。
+  ```
+
+  ![1667816868720](D:\studyNodes\Python 数据分析.assets\1667816868720.png)
+
+- 箱线图
+
+  sns.boxplot
+
+  参数：saturation：设定正常值范围的分位数点，例如设置四分位数： sa=0.75
+
+  ​           whis：就是在求异常值时设定的k值，即设定几个间隔interval
+
+![1667824715690](D:\studyNodes\Python 数据分析.assets\1667824715690.png)
+
+- 
