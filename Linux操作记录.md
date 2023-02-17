@@ -316,11 +316,16 @@ wc -L 查看当前文件最长的一行有多少字数
 - **linux 压缩文件为zip文件**
 
 ```
-zip  文件名称/文件夹名称 压缩后的文件名称
+压缩文件夹下的所有文件：
+zip  文件夹名称 压缩后的文件名称
 eg：
 zip split-data/* split-data.zip
 ps:
 deflated 70% 代表压缩率为百分之70
+
+压缩单个/多个文件：
+zip [选项] 压缩包名 源文件或源目录列表
+zip fs160.zip fs160.bed
 ```
 
 - linux编写循环脚本
@@ -407,5 +412,13 @@ n指的是要定位到的行数
 windows下读取到的文件的换行符： '\r\n' (\r代表回车符)
 linux/unix： '\n'
 这会导致linux和windows互相读取文件的时候出现换行/数据长度的问题
+
+```
+
+- linux 断点续传
+
+```
+wget url 直接下载
+wget url -c 断点续传
 ```
 

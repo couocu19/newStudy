@@ -614,3 +614,286 @@ todo：提上日程的事情：每天至少看3个数分的视频！！！！
 ![1667824715690](D:\studyNodes\Python 数据分析.assets\1667824715690.png)
 
 - 
+
+
+
+## 11.9
+
+- 处理csv文件，删除某些行后会导致数据的索引列不连续，解决方法：需要重置索引列；
+
+![1667982789128](D:\studyNodes\Python 数据分析.assets\1667982789128.png)
+
+  解决方法，在修改的数据后面加 reset_index
+
+```
+df1 = df1[df1["readsNum"] >= i].reset_index(drop=True)  #重新设置索引
+```
+
+
+
+## 11.10
+
+- seaborn可设置的颜色
+
+```
+sns.palplot(sns.color_palette("BuGn", 10))
+sns.palplot(sns.color_palette("GnBu", 10))
+sns.palplot(sns.color_palette("OrRd", 10))
+sns.palplot(sns.color_palette("PuBu", 10))
+sns.palplot(sns.color_palette("YlGn", 10))
+sns.palplot(sns.color_palette("YlGnBu", 10))
+
+ps：如果想用某一个色块的第i个色块的颜色，则需要用数组的形式来指定颜色：
+sns.set_palette([sns.color_palette("RdBu",n_colors=7)[6]]) 
+```
+
+![1668063956389](D:\studyNodes\Python 数据分析.assets\1668063956389.png)
+
+
+
+![1668064548703](D:\studyNodes\Python 数据分析.assets\1668064548703.png)
+
+
+
+- seaborn设置风格
+
+```
+sns.set_style(style="whitegrid")
+sns.set(style='white')
+sns.set(style='whitegrid')
+sns.set(style='darkgrid')
+sns.set(style='dark')
+sns.set(style='ticks')
+```
+
+
+## 11.14
+
+- 探索性数据分析
+
+![1668431152935](D:\studyNodes\Python 数据分析.assets\1668431152935.png)
+
+
+
+
+
+
+
+- 假设检验
+
+![1668518638124](D:\studyNodes\Python 数据分析.assets\1668518638124.png)
+
+1. 原假设：H0（包含等号），H0的反命题为H1，也叫备择假设
+
+   2.选择检验统计量
+
+   3.根据显著水平（一般为0.05），确定拒绝域
+
+   4.计算p值或者样本统计值，作出判断；
+
+
+
+![1668431526113](D:\studyNodes\Python 数据分析.assets\1668431526113.png)
+
+
+
+
+
+## 11.15
+
+- 卡方检验
+
+  用途：用来检验两组数据的分布是否一致；检验某组数据的分布和某个因素是否相关
+
+  ![1668507064305](D:\studyNodes\Python 数据分析.assets\1668507064305.png)
+
+  
+
+  ![1668507338206](D:\studyNodes\Python 数据分析.assets\1668507338206.png)
+
+  
+
+  f：实际值
+
+  npi：理论分布值（假设两组数据分布一致时的理论值）
+
+  计算得到卡方值
+
+- 方差检验
+
+  检验不同组数据均值是否有差异
+
+- ![1668507530669](D:\studyNodes\Python 数据分析.assets\1668507530669.png
+
+![1668507419740](D:\studyNodes\Python 数据分析.assets\1668507419740.png)
+
+![1668507489510](D:\studyNodes\Python 数据分析.assets\1668507489510.png)
+
+![1668507604428](D:\studyNodes\Python 数据分析.assets\1668507604428.png)
+
+
+
+代码实现
+
+```
+ss.f_oneway([49,50,39,40,43],[28,32,30,26,34],[38,40,45,42,48])
+F_onewayResult(statistic=17.619417475728156, pvalue=0.0002687153079821641)
+```
+
+- 相关系数
+
+
+![1668507773338](D:\studyNodes\Python 数据分析.assets\1668507773338.png)
+
+r>0,则X和Y的变化趋势时一致的
+
+r<0,则X和Y的变化趋势不一致；
+
+
+
+2. Spearman相关系数：
+
+   应用于相对比较的情况，因为Spearman相关系数和元素值得大小关系不大；
+
+   d代表两组数据的“排名差”
+
+![1668507997400](D:\studyNodes\Python 数据分析.assets\1668507997400.png)
+
+
+
+
+
+- 线性回归
+
+  回归：确定两种或两种以上变量间相互依赖的定量关系的一种统计分析方法；
+
+  常用：线性回归
+
+  ![1668508143258](D:\studyNodes\Python 数据分析.assets\1668508143258.png)
+
+  
+
+​     线性回归的关键指标：
+
+​       1.决定系数；越接近1，回归效果越好，越接近0，回归效果越差；
+
+​       2.残差不相关（DW检验）（多元线性回归）
+
+​          残差e：预测值与实际值的差
+
+​          k：参数的个数
+
+​         DW：0~4，好的回归残差不相关，即DW的值接近于2.
+
+![1668508648637](D:\studyNodes\Python 数据分析.assets\1668508648637.png)
+
+
+
+- 主成分分析（PCA）
+
+  https://blog.csdn.net/YMilton/article/details/89263997
+
+  （与矩阵分析有关）
+
+  ![1668508668766](D:\studyNodes\Python 数据分析.assets\1668508668766.png)
+
+  步骤：
+
+  ![1668508754488](D:\studyNodes\Python 数据分析.assets\1668508754488.png)
+
+    
+
+
+
+- 奇异值分解（SVD）
+
+  没听懂。。。。
+
+![1668509077263](D:\studyNodes\Python 数据分析.assets\1668509077263.png)
+
+
+
+- 独立分布t检验
+
+  检验两组数据的均值是否有差别
+
+![1668517380322](D:\studyNodes\Python 数据分析.assets\1668517380322.png)
+
+
+
+
+
+代码实现
+
+```
+ss.ttest_ind(ss.norm.rvs(size=10),ss.norm.rvs(size=20))
+Ttest_indResult(statistic=-1.0204339442264587, pvalue=0.3162590632041055)
+
+解释：随机生成两组呈正态分布的数据，通过t分布检验这两组数据的均值在显著性水平为0.05时的均值是否有差别；
+statistic为统计值
+pvalue为p值，即和显著性水平进行比较的值，若大于0.05，则接受均值无差别的假设；反之则拒绝该假设。
+```
+
+
+
+- 数组的两种表示方法
+
+```
+[s1,s2]
+np.array(s1,s2).T（转置矩阵）
+```
+
+
+
+https://zhuanlan.zhihu.com/p/463939023 
+
+todo
+
+
+
+## 1.28
+
+- matplotlib去掉边框
+
+```
+#去掉顶部和右边边框
+fig, ax = plt.subplots()
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+```
+
+
+
+## 1.29
+
+- python颜色代码大全
+
+```
+https://blog.csdn.net/summerriver1/article/details/125215461?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167500457616800186584606%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167500457616800186584606&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-125215461-null-null.142^v71^one_line,201^v4^add_ask&utm_term=python%E7%BB%98%E5%9B%BE%E9%A2%9C%E8%89%B2%E4%BB%A3%E7%A0%81%E5%A4%A7%E5%85%A8&spm=1018.2226.3001.4187
+```
+
+- 今天遇到的bug
+
+![1675009724052](D:\studyNodes\Python 数据分析.assets\1675009724052.png)
+
+ 解决：plt.plot(x,y，……)中参数x和y的数据对应的维度应一致，即x数组和y数组中数据的数量应该一致
+
+
+
+## 2.17
+
+- 饼图的绘制以及每个扇形色块的设置
+
+```
+# 饼图
+plt.pie(y, labels=label, colors=['r', 'gray', 'y', 'g', 'b', 'c', 'm', 'pink']
+        , autopct='%1.1f%%')    # autopct表示显示数字百分比
+
+```
+
+- python seaborn 调色大全
+
+```
+https://blog.csdn.net/qq_35149632/article/details/104365243?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167663948916800215027738%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167663948916800215027738&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-1-104365243-null-null.142^v73^insert_down4,201^v4^add_ask,239^v2^insert_chatgpt&utm_term=%20seaborn%20%E9%A2%9C%E8%89%B2%E4%BB%A3%E7%A0%81&spm=1018.2226.3001.4187
+```
+
