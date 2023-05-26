@@ -897,3 +897,242 @@ plt.pie(y, labels=label, colors=['r', 'gray', 'y', 'g', 'b', 'c', 'm', 'pink']
 https://blog.csdn.net/qq_35149632/article/details/104365243?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167663948916800215027738%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167663948916800215027738&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-1-104365243-null-null.142^v73^insert_down4,201^v4^add_ask,239^v2^insert_chatgpt&utm_term=%20seaborn%20%E9%A2%9C%E8%89%B2%E4%BB%A3%E7%A0%81&spm=1018.2226.3001.4187
 ```
 
+
+
+## 4.10
+
+- python获取某列为指定值的行的基本实现代码
+
+可以使用pandas库读取表格数据，然后使用DataFrame的查询功能来获取某一列为指定值的行。
+
+以下是代码示例：
+
+```
+python复制代码import pandas as pd
+
+# 读取csv文件
+df = pd.read_csv('example.csv')
+
+# 获取'column_1'列为'value_1'的行
+result = df[df['column_1'] == 'value_1']
+
+# 打印结果
+print(result)
+```
+
+其中，`df['column_1']`表示获取dataframe中名为'column_1'的列，再使用条件语句`== 'value_1'`筛选指定值为'value_1'的行。最终结果保存在`result`变量中，可以进行后续处理。
+
+## 4.11
+
+- 获取表格中某一列为指定值的行数
+
+可以使用 pandas 库来处理表格，统计某一列为特定值的行的数量。
+
+假设你有一个名为 "data.csv" 的表格文件，并且该文件的第一列数据是 "Name"，第二列数据是 "Age"。你可以使用以下代码来读取该表格文件：
+
+```
+python复制代码import pandas as pd
+
+data = pd.read_csv("data.csv")
+```
+
+然后，你可以使用 `value_counts()` 方法来统计某一列为特定值的行的数量。例如，如果你想要统计 "Age" 列中年龄为 20 岁的行的数量，可以使用以下代码：
+
+```
+count = (data['Age'] == 20).value_counts()[True]
+print(count)
+```
+
+其中，`data['Age'] == 20` 返回一个布尔型的 Series，表示表格中每个元素是否等于 20。`.value_counts()` 方法用于计算 True 和 False 的数量，而 `[True]` 用于获取 True 的数量。
+
+以上代码会输出 "42"，表示年龄为 20 岁的行的数量为 42 行。
+
+
+
+- **分析文件产生的疑问**
+
+  ```
+  通过对比分析RepeatMasker产生的tbl文件（计算结果统计总文件）以及out文件（详细地结果汇总文件），发现有部分重复序列的类型并没有在tbl文件中统计出来，其中也有三种重复类型标有？，初步推测是代表了“Unclassified”
+  ```
+
+- 各个重复类型的数量汇总
+
+```
+         RepeatTypes  count
+0                DNA   1238
+1      DNA/CMC-EnSpm    862
+2      DNA/MULE-MuDR   4140
+3   DNA/PIF-Harbinge    424
+4   DNA/TcMar-Marine     34
+5     DNA/TcMar-Pogo    468
+6   DNA/TcMar-Stowaw    338
+7            DNA/hAT    111
+8         DNA/hAT-Ac    803
+9    DNA/hAT-Charlie    218
+10      DNA/hAT-Tag1    100
+11    DNA/hAT-Tip100     33
+12              DNA?    113
+13           LINE/L1   1783
+14             LINE?     74
+15     LTR/Cassandra   1306
+16         LTR/Copia   2311
+17         LTR/Gypsy   5704
+18    Low_complexity   8955
+19       RC/Helitron   4131
+20        Retroposon     78
+21  Retroposon/L1-de     13
+22         SINE/tRNA    434
+23        SINE/tRNA?    104
+24         Satellite    775
+25   Satellite/centr   1033
+26     Simple_repeat  35545
+27              rRNA     96
+28             snRNA     16
+29              tRNA    522
+```
+
+- **啊啊啊啊啊啊啊啊啊啊！！！！自己看吧！！**
+
+在 Pandas 中，我们可以使用 DataFrame.to_csv() 方法将处理后的表格保存到新的文件中，并设置分隔符为制表符（`\t`）。该方法可以接受一个文件名作为参数，并通过 sep 参数指定分隔符。
+
+以下是通过 Pandas 处理表格并设置分隔符为制表符，然后将表格保存到新的文件中的示例代码：
+
+```
+python复制代码import pandas as pd
+
+# 读取表格文件，得到一个 DataFrame 对象
+df = pd.read_csv('filename.csv')
+
+# 在 DataFrame 中进行处理操作
+df_processed = df.dropna()
+
+# 将处理后的 DataFrame 对象保存到新的文件中，分隔符为制表符
+df_processed.to_csv('filename_processed.tsv', sep='\t', index=False)
+```
+
+在这里，我们首先使用 pandas.read_csv() 方法读取表格文件，返回一个 DataFrame 对象。然后，在 DataFrame 对象中进行处理操作，例如删除缺失值等。最后，使用 DataFrame.to_csv() 方法将处理后的 DataFrame 对象保存到新的文件中，并通过 sep 参数指定分隔符为制表符。
+
+如果需要将 DataFrame 对象保存为 Excel 格式的文件，可以使用 DataFrame.to_excel() 方法，并通过 sep 参数指定分隔符为制表符（`\t`）。
+
+- displot和distplot的区别
+
+```
+seaborn库中的displot函数和distplot函数都可以用于绘制一维分布图，但是它们的用法有所不同。
+
+distplot函数可以绘制直方图、KDE曲线以及拟合的参数分布曲线。其主要参数包括：数据、直方图的柱子数量、是否显示KDE曲线、是否正则化（将分布面积变为1）、是否拟合参数分布等选项。
+
+displot函数则是seaborn推出的新函数，它取代了distplot和其他一些函数，可以进行更加灵活的绘图。在displot函数中，可以通过kind参数来选择需要绘制的图表种类，例如直方图、KDE曲线、ECDF曲线等等。除此之外，displot还可以绘制多个子图，并且可以使用col或row参数来按照指定的分类变量进行分组绘制，非常方便。
+
+因此，总体来说，distplot函数更加专注于一维数据的可视化，而displot则提供更加多样化的图表种类，并且支持多个子图和分组绘制，更加实用。
+```
+
+
+
+- python处理表格，按照其中几列的值进行合并，如果某两行的A列值和B列值相同，那么就将这两行合并为同一行，对于这两行中不同的列值，合并为同一个列值，并用逗号隔开
+
+
+
+### python颜色库
+
+<https://matplotlib.org/stable/gallery/color/named_colors.html> 
+
+https://www.webucator.com/article/python-color-constants-module/ (科研配色)
+
+
+
+### python字体设置
+
+```
+Adobe Devanagari                   Agency FB                          
+Algerian                           Arial                              Arial Rounded MT Bold              Arial Unicode MS                   
+Baskerville Old Face               Bauhaus 93                         Bell MT                            Berlin Sans FB                     
+Berlin Sans FB Demi                Bernard MT Condensed               Blackadder ITC                     Bodoni MT                          
+Book Antiqua                       Bookman Old Style                  Bookshelf Symbol 7                 Bradley Hand ITC                   
+Britannic Bold                     Broadway                           Brush Script MT                    Calibri                            
+Californian FB                     Calisto MT                         Cambria                            Candara                            
+Castellar                          Centaur                            Century                            Century Gothic                     
+Century Schoolbook                 Chiller                            Colonna MT                         Comic Sans MS                      
+Consolas                           Constantia                         Cooper Black                       Copperplate Gothic Bold            
+Copperplate Gothic Light           Corbel                             Courier New                        Curlz MT                           
+DejaVu Sans                        DejaVu Sans Display                DejaVu Sans Mono                   DejaVu Serif                       
+DejaVu Serif Display               DengXian                           ESRI AMFM Electric                 ESRI AMFM Gas                      
+ESRI AMFM Sewer                    ESRI AMFM Water                    ESRI ArcPad                        ESRI Arrowhead                     
+ESRI Business                      ESRI Cartography                   ESRI Caves 1                       ESRI Caves 2                       
+ESRI Caves 3                       ESRI Climate & Precipitation       ESRI Commodities                   ESRI Conservation                  
+ESRI Crime Analysis                ESRI Default Marker                ESRI Dimensioning                  ESRI ERS Infrastructures S1        
+ESRI ERS Operations S1             ESRI Elements                      ESRI Enviro Hazard Analysis        ESRI Enviro Hazard Incident        
+ESRI Enviro Hazard Sites           ESRI Environmental & Icons         ESRI Fire Incident NFPA            ESRI Geology                       
+ESRI Geology AGSO 1                ESRI Geology USGS 95-525           ESRI Geometric Symbols             ESRI Hazardous Materials           
+ESRI Hydrants                      ESRI IGL Font16                    ESRI IGL Font20                    ESRI IGL Font21                    
+ESRI IGL Font22                    ESRI IGL Font23                    ESRI IGL Font24                    ESRI IGL Font25                    
+ESRI Meteorological 01             ESRI Mil2525C Modifiers            ESRI MilMod 01                     ESRI MilMod 02                     
+ESRI MilRed 01                     ESRI MilSym 01                     ESRI MilSym 02                     ESRI MilSym 03                     
+ESRI MilSym 04                     ESRI MilSym 05                     ESRI NIMA City Graphic LN          ESRI NIMA City Graphic PT          
+ESRI NIMA DNC LN                   ESRI NIMA DNC PT                   ESRI NIMA VMAP1&2 LN               ESRI NIMA VMAP1&2 PT               
+ESRI North                         ESRI Oil, Gas, & Water             ESRI Ordnance Survey               ESRI Pipeline US 1                 
+ESRI Public1                       ESRI SDS 1.95 1                    ESRI SDS 1.95 2                    ESRI SDS 2.00 1                    
+ESRI SDS 2.00 2                    ESRI Shields                       ESRI Surveyor                      ESRI Telecom                       
+ESRI Transportation & Civic        ESRI US Forestry 1                 ESRI US Forestry 2                 ESRI US MUTCD 1                    
+ESRI US MUTCD 2                    ESRI US MUTCD 3                    ESRI Weather                       Ebrima                             
+Edwardian Script ITC               Elephant                           Engravers MT                       Eras Bold ITC                      
+Eras Demi ITC                      Eras Light ITC                     Eras Medium ITC                    Euclid                             
+Euclid Extra                       Euclid Fraktur                     Euclid Math One                    Euclid Math Two                    
+Euclid Symbol                      FZCuHeiSongS-B-GB                  FZLanTingHeiS-UL-GB                FZShuTi                            
+FZYaoTi                            FangSong                           Felix Titling                      Fences                             
+Footlight MT Light                 Forte                              Franklin Gothic Book               Franklin Gothic Demi               
+Franklin Gothic Demi Cond          Franklin Gothic Heavy              Franklin Gothic Medium             Franklin Gothic Medium Cond        
+Freestyle Script                   French Script MT                   Gabriola                           Gadugi                             
+Garamond                           Georgia                            Gigi                               Gill Sans MT                       
+Gill Sans MT Condensed             Gill Sans MT Ext Condensed Bold    Gill Sans Ultra Bold               Gill Sans Ultra Bold Condensed     
+Gloucester MT Extra Condensed      Goudy Old Style                    Goudy Stout                        Haettenschweiler                   
+Harlow Solid Italic                Harrington                         High Tower Text                    HoloLens MDL2 Assets               
+Impact                             Imprint MT Shadow                  Informal Roman                     Javanese Text                      
+Jokerman                           Juice ITC                          KaiTi                              Kristen ITC                        
+Kunstler Script                    Leelawadee                         Leelawadee UI                      LiSu                               
+Lucida Bright                      Lucida Calligraphy                 Lucida Console                     Lucida Fax                         
+Lucida Handwriting                 Lucida Sans                        Lucida Sans Typewriter             Lucida Sans Unicode                
+MS Gothic                          MS Outlook                         MS Reference Sans Serif            MS Reference Specialty             
+MT Extra                           MT Extra Tiger                     MV Boli                            Magneto                            
+Maiandra GD                        Malgun Gothic                      Marlett                            Matura MT Script Capitals          
+Meiryo                             Microsoft Himalaya                 Microsoft JhengHei                 Microsoft MHei                     
+Microsoft NeoGothic                Microsoft New Tai Lue              Microsoft PhagsPa                  Microsoft Sans Serif               
+Microsoft Tai Le                   Microsoft Uighur                   Microsoft YaHei                    Microsoft Yi Baiti                 
+MingLiU-ExtB                       Mistral                            Modern No. 20                      Mongolian Baiti                    
+Monotype Corsiva                   Myanmar Text                       Niagara Engraved                   Niagara Solid                      
+Nirmala UI                         NumberOnly                         OCR A Extended                     Old English Text MT                
+Onyx                               OriginGISSymbols                   Palace Script MT                   Palatino Linotype                  
+Papyrus                            Parchment                          Perpetua                           Perpetua Titling MT                
+Playbill                           Poor Richard                       Pristina                           Rage Italic                        
+Ravie                              Rockwell                           Rockwell Condensed                 Rockwell Extra Bold                
+STCaiyun                           STFangsong                         STHupo                             STIXGeneral                        
+STIXNonUnicode                     STIXSizeFiveSym                    STIXSizeFourSym                    STIXSizeOneSym                     
+STIXSizeThreeSym                   STIXSizeTwoSym                     STKaiti                            STLiti                             
+STSong                             STXihei                            STXingkai                          STXinwei                           
+STZhongsong                        Script MT Bold                     Segoe MDL2 Assets                  Segoe Print                        
+Segoe Script                       Segoe UI                           Segoe UI Emoji                     Segoe UI Historic                  
+Segoe UI Symbol                    Segoe WP                           Showcard Gothic                    SimHei                             
+SimSun                             SimSun-ExtB                        Sitka Small                        Snap ITC                           
+Stencil                            Sylfaen                            Symbol                             Symbol Tiger                       
+Symbol Tiger Expert                Tahoma                             Tempus Sans ITC                    Tiger                              
+Tiger Expert                       Times New Roman                    Trebuchet MS                       Tw Cen MT                          
+Tw Cen MT Condensed                Tw Cen MT Condensed Extra Bold     Verdana                            Viner Hand ITC                     
+Vivaldi                            Vladimir Script                    Webdings                           Wide Latin                         
+Wingdings                          Wingdings 2                        Wingdings 3                        YouYuan                            
+Yu Gothic                          ZWAdobeF                           cmb10                              cmex10                             
+cmmi10                             cmr10                              cmss10                             cmsy10                             
+cmtt10                             hakuyoxingshu7000                  icomoon  
+
+```
+
+- 代码记录
+
+```
+    x_data = df['name']
+    y_data = df['size(MB)']
+    type = df['type']
+    x = [0, 0.5, 1.3, 1.8, 2.6, 3.1, 3.9, 4.4, 5.2, 5.7]
+    # plt.xticks(x,x_data)
+    # plt.xticks(rotation=45)
+    # plt.bar(x,y_data,width=0# 将每个分组内的柱子间距设置为0.1
+```
+

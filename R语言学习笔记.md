@@ -242,3 +242,37 @@ antialias  # 字符串；要使用的抗锯齿状类型，默认为"default"
 - R语言颜色表
 
 ![img](https://img-blog.csdnimg.cn/56f266f95f1542d3b0b2b7bab0747b29.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAYXdrX2Jpb2luZm8=,size_20,color_FFFFFF,t_70,g_se,x_16) 
+
+
+
+- R语言中安装R包时不同的方法
+
+```R
+1.清华大学镜像
+options(repos=c(CRAN="https://mirror.tuna.tsinghua.edu.cn/CRAN/"))
+install.packages("scRNAseq")
+2.github
+if(!require(devtools)) install.packages('devtools')
+devtools::install_github("kjhealy/socviz")
+#其中kjhealy是Github网站的某个作者的名称， socviz是该作者名下的一个R扩展包。
+3.Bioconductor
+options(repos=c(CRAN="https://mirror.tuna.tsinghua.edu.cn/CRAN/"))
+if (!requireNamespace("BiocManager", quietly = TRUE)){
+  install.packages("BiocManager")
+  BiocManager::install()
+}
+options(BioC_mirror="https://mirrors.tuna.tsinghua.edu.cn/bioconductor")
+BiocManager::install(c("BiocStyle"))
+```
+
+- apply函数
+
+```R
+apply(
+  x # 数组或矩阵
+  MARGIN #应用函数的方向，1行2列 
+  FUN # 应用的函数
+)
+# 返回值根据数据Data的数据类型与Fun的返回值自动判断返回的数据类型
+```
+
