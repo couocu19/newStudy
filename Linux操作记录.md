@@ -244,6 +244,8 @@ chmod -R 777 * 意思就是将当前目录下所有文件都给予777权限
 
 ```
 du -h filename
+#输出文件夹的总大小
+du -sh 目标文件夹路径
 ```
 
 ### linux解压zip文件命令
@@ -391,6 +393,29 @@ do
    cfn=${var3}${tail}
    bedtools coverage -a S4257-chr.bed -b $mfn > $cfn
 done
+
+
+
+###########遍历文件夹下的多个文件并合并文件
+#!/bin/bash
+
+# 遍历文件夹并合并文件
+output_file="human.out"
+for i in {1..24}
+do
+    # 创建目标文件合并后的文件名 'i.out'
+    input_file="sq${i}.fasta.out"
+
+    # 切换到当前文件夹下的 'hmi' 文件夹
+    cd "hm-chr${i}"
+    
+    sed -i '1,3d' "$input_file"
+    # 合并当前文件夹下的所有文件到目标文件 'i.out'
+    cat $input_file >  "$output_file"
+
+    # 切换回上一级目录
+    cd ..
+done
 ```
 
 
@@ -465,6 +490,7 @@ conda install scipy=0.15.0
 ```
 vim ~/.bashrc
 export PATH="/share/home/xiongchu/downloads/wise2.4.1/src/bin:$PATH"
+export PATH="/share/home/xiongchu/downloads:$PATH"
 source ~/.bashrc
 
 ```
@@ -490,6 +516,26 @@ https://blog.csdn.net/u012253351/article/details/125465975
 eg：
 wget -c https://github.com/bedops/bedops/releases/download/v2.4.39/bedops_linux_x86_64-v2.4.39.tar.bz2
 tar jxvf bedops_linux_x86_64-v2.4.39.tar.bz2
+
+```
+
+### linux解压tar文件
+
+```
+在 Linux 系统中解压 .tar 文件，您可以使用以下命令：
+tar -xvf 文件名.tar
+其中，-x 表示解压，-v 表示显示详细信息，-f 后面跟着要解压的 .tar 文件名。
+例如，假设您有一个名为 archive.tar 的 .tar 文件，您可以使用以下命令进行解压：
+tar -zxvf archive.tar
+执行该命令后，文件将被解压缩到当前目录中。您可以使用 ls 命令查看解压后的文件列表。
+
+```
+
+### linux tar打包文件
+
+```
+tar -zcvf 打包后的文件名.tar.gz 打包的目录名称或文件名称
+
 ```
 
 ### linux split命令分割文件
@@ -541,6 +587,13 @@ cat file1 file2 file3 > output_file
   例如，假设我们有两个名为 a.txt 和 b.txt 的文件，想将它们合并到一个名为 c.txt 的文件中，可以使用以下命令：
 cat a.txt b.txt > c.txt
    执行上述命令后，a.txt 和 b.txt 中的内容就会被依次追加到 c.txt 文件中。需要注意的是，如果 c.txt 文件已经存在，执行该命令会将原有内容覆盖掉，因此在执行前最好备份一下目标文件。
+
+```
+
+### 将A文件的内容追加到B文件中，B文件中内容不为空
+
+```
+cat A >> B
 ```
 
 ### 压缩文件为gz格式
@@ -549,3 +602,57 @@ cat a.txt b.txt > c.txt
 gzip [选项] 文件名
 ```
 
+### 获取文件中值为“A”的所有文本行并统计总行数
+
+```
+grep -o "A" file.txt | wc -l
+
+grep -o ">" Fragaria_vesca_v4.0a2_cds.fasta |wc -l
+解释一下这个命令的含义：
+
+grep -o "A" file.txt：使用grep命令搜索文件file.txt中出现的所有匹配"A"的文本行，并逐行输出匹配的内容。
+|：管道操作符，将grep命令的输出传递给下一个命令。
+wc -l：统计输入中的行数。这里使用参数-l表示只统计行数。
+通过以上命令，将输出文件file.txt中匹配"A"的元素数量。
+```
+
+### 获取文件中字符串A和字符串B之间的内容并保存到新的文件中
+
+```
+sed -n '/>CHM13v2.chr1/,/GRCh38#0#chr1#0/p' cpch2.fa > t2t_1.fa
+
+sed -n '/>HG00438#1#JAHBCB010000006.1#0/,/>HG00438#2#JAHBCA010000012.1#0/p' cpch2.fa > hg1_1_1017.fa
+```
+
+### 统计文件中字符数，排除其中的特定字符（换行，空格等）
+
+```
+cat pan_ch1.txt | tr -d '\n' | wc -m
+
+```
+
+### **同时输出多个文件的若干指定列**
+
+```
+要同时输出文件A的第一列和文件B的第二列，你可以使用Linux中的命令行工具来完成。下面是一种可能的方法：
+
+shell
+paste <(cut -f 1 fileA) <(cut -f 2 fileB)
+这个命令使用了三个工具：cut、paste 和 <( )。
+
+cut -f 1 fileA 用于从文件A中提取第一列的内容。
+cut -f 2 fileB 用于从文件B中提取第二列的内容。
+<() 是一种进程替换的技术，它允许将命令的输出作为文件传递给另一个命令。
+最后，paste 命令将两个提取的列并排拼接在一起，并以制表符分隔。
+
+请确保将 fileA 和 fileB 替换为你实际使用的文件名。此外，还可以根据需要调整命令以满足特定的需求。
+```
+
+### 解压rar文件
+
+```
+unrar x filename.rar
+**
+```
+
+### **查看文件夹中有多少个文件**
