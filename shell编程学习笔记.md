@@ -348,3 +348,58 @@ else
 fi
 ```
 
+
+
+## 11.28
+
+### cut命令
+
+```
+cut [option] filename
+说明：默认分隔符是制表符
+选项参数：
+-b(bytes): 指定文件按照字节数来分割；
+-d： 指定文件的分隔符；
+-f： 指定输出文件分割后的列数；
+-c： 按字符进行切割 后加加n 表示取第几列  比如 -c 1
+```
+
+### awk命令
+
+```
+awk  [选项参数] ‘/pattern1/{action1}  /pattern2/{action2}...’ filename
+pattern：表示awk在数据中查找的内容，就是匹配模式
+action：在找到匹配内容时所执行的一系列命令
+ps：
+也可以不执行匹配模式直接执行action
+
+选项参数：
+-F: 指定输入文件的分隔符，以空格为默认分隔符；
+-v：赋值一个用户定义变量
+```
+
+eg：
+
+```
+统计文件第三列值为CDS的数量
+awk '$3=="CDS" {count++} END{print count}' fv-gff-3.bed
+
+交换文件的列
+awk '{temp=$3; $3=$4; $4=temp; print}' tmp.txt > msnew-exon-1.bed
+
+输出文件的第一列和第七列，并按逗号分割：
+awk -F : 'BEGIN{print "user, shell"} {print $1","$7} END{print "dahaige,/bin/zuishuai"}' passwd
+注意：BEGIN 在所有数据读取行之前执行；END 在所有数据执行之后执行。
+```
+
+- **内置变量**
+
+```
+FILENAME	文件名
+NR	已读的记录数（行号）
+NF	浏览记录的域的个数（切割后，列的个数）
+
+eg：
+awk -F : '{print "filename:" FILENAME  ",linenum:" NR ",col:"NF}' passwd 
+```
+
