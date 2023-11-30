@@ -1,0 +1,16 @@
+mysql安装记录：
+1. mysqld --initialize --console
+
+###初始化密码
+A temporary password is generated for root@localhost: yAy%3Qt#PyT<
+
+2. mysqld --install mysql
+3. net start mysql
+
+4. mysql -uroot -p 
+
+5.ALTER USER 'root'@'localhost' IDENTIFIED BY '074216';
+
+6.配置系统变量
+
+
