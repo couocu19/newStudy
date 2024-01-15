@@ -390,6 +390,8 @@ awk '{temp=$3; $3=$4; $4=temp; print}' tmp.txt > msnew-exon-1.bed
 输出文件的第一列和第七列，并按逗号分割：
 awk -F : 'BEGIN{print "user, shell"} {print $1","$7} END{print "dahaige,/bin/zuishuai"}' passwd
 注意：BEGIN 在所有数据读取行之前执行；END 在所有数据执行之后执行。
+
+awk '{$5=="Simple_repeat"; print}' ab-rptAndsv.txt > svRpt-SR.txt
 ```
 
 - **内置变量**
